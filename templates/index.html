@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whisper Транскрипція</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 { text-align: center; color: #333; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+        .upload-area {
+            border: 3px dashed #667eea; border-radius: 12px; padding: 60px 20px;
+            text-align: center; cursor: pointer; transition: all 0.3s; margin-bottom: 20px;
+            background: #f8f9ff;
+        }
+        .upload-area.dragover { background: #e8eaff; border-color: #764ba2; }
+        .upload-icon { font-size: 48px; margin-bottom: 10px; }
+        .upload-text { color: #667eea; font-size: 16px; font-weight: 500; }
+        .file-input { display: none; }
+        .options { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .option-group { display: flex; flex-direction: column; }
+        label { font-size: 14px; color: #555; margin-bottom: 5px; font-weight: 500; }
+        select {
+            padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px;
+            cursor: pointer; transition: border-color 0.3s;
+        }
+        select:focus { outline: none; border-color: #667eea; }
+        .btn {
+            width: 100%; padding: 15px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600;
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .progress-section { display: none; margin-top: 30px; }
+        .progress-bar-container { width: 100%; height: 30px; background: #f0f0f0; border-radius: 15px; overflow: hidden; margin-bottom: 10px; }
+        .progress-bar {
+            height: 100%; transition: width 0.3s; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 12px; font-weight: 600;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        .progress-message { text-align: center; color: #666; font-size: 14px; }
+        .result-section { display: none; margin-top: 30px; }
+        .result-actions { display: flex; gap: 10px; margin-bottom: 15px; }
+        .action-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .copy-btn { background: #28a745; color: white; }
+        .download-btn { background: #007bff; color: white; }
+        .result-text {
+            background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px;
+            max-height: 400px; overflow-y: auto; line-height: 1.6; font-size: 14px; color: #333; white-space: pre-wrap;
+        }
+        .selected-file { display: none; margin-top: 15px; padding: 12px; background: #e8f5e9; border-radius: 8px; color: #2e7d32; font-size: 14px; text-align: center; }
+        .info-badge { display: inline-block; padding: 4px 12px; background: #e3f2fd; color: #1976d2; border-radius: 12px; font-size: 12px; margin-top: 10px; }
+        @media (max-width: 600px) {
+            .options { grid-template-columns: 1fr; }
+            .result-actions { flex-direction: column; }
+            h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Whisper Транскрипція</h1>
+        <p class="subtitle">Перетягніть аудіо/відео файл або натисніть для вибору</p>
+
+        <div class="upload-area" id="uploadArea" tabindex="0">
+            <div class="upload-icon">📁</div>
+            <div class="upload-text">Клікніть або перетягніть файл сюди</div>
+            <input type="file" id="fileInput" class="file-input" accept="audio/*,video/*">
+        </div>
+
+        <div class="selected-file" id="selectedFile"></div>
+
+        <div class="options">
+            <div class="option-group">
+                <label for="language">Мова:</label>
+                <select id="language">
+                    <option value="uk">Українська</option>
+                    <option value="ru">Російська</option>
+                    <option value="en">Англійська</option>
+                    <option value="ja">Японська</option>
+                </select>
+            </div>
+            <div class="option-group">
+                <label for="modelSize">Модель:</label>
+                <select id="modelSize">
+                    <option value="tiny">Tiny (швидка)</option>
+                    <option value="base" selected>Base (оптимальна)</option>
+                    <option value="small">Small (точна)</option>
+                    <option value="medium">Medium (дуже точна)</option>
+                    <option value="large">Large (найточніша)</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn" id="transcribeBtn" disabled>Почати транскрипцію</button>
+
+        <div class="progress-section" id="progressSection" aria-hidden="true">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+            </div>
+            <div class="progress-message" id="progressMessage">Обробка...</div>
+        </div>
+
+        <div class="result-section" id="resultSection" aria-hidden="true">
+            <div class="result-actions">
+                <button class="action-btn copy-btn" id="copyBtn">📋 Копіювати текст</button>
+                <button class="action-btn download-btn" id="downloadBtn">💾 Скачати субтитри</button>
+            </div>
+            <div class="result-text" id="fullText"></div>
+            <div id="languageInfo" class="info-badge" style="display: none;">
+                Визначена мова: <span id="detectedLanguage"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Оновлений, стабільний JavaScript -->
+    <script>
+    let selectedFile = null;
+    let currentTaskId = null;
+    let srtFilename = null;
+    let progressTimer = null;
+
+    const uploadArea = document.getElementById('uploadArea');
+    const fileInput = document.getElementById('fileInput');
+    const transcribeBtn = document.getElementById('transcribeBtn');
+    const progressSection = document.getElementById('progressSection');
+    const resultSection = document.getElementById('resultSection');
+    const selectedFileDiv = document.getElementById('selectedFile');
+    const progressBar = document.getElementById('progressBar');
+    const progressMessage = document.getElementById('progressMessage');
+    const fullTextEl = document.getElementById('fullText');
+    const languageInfo = document.getElementById('languageInfo');
+    const detectedLanguageEl = document.getElementById('detectedLanguage');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    function resetUI() {
+        clearTimeout(progressTimer);
+        progressBar.style.width = '0%';
+        progressBar.textContent = '0%';
+        progressMessage.textContent = '';
+        progressSection.style.display = 'none';
+        resultSection.style.display = 'none';
+        languageInfo.style.display = 'none';
+        transcribeBtn.disabled = false;
+        transcribeBtn.textContent = 'Почати транскрипцію';
+    }
+
+    function showProgress(percent, message) {
+        progressSection.style.display = 'block';
+        progressBar.style.width = `${percent}%`;
+        progressBar.textContent = `${percent}%`;
+        progressMessage.textContent = message || 'Обробка...';
+    }
+
+    uploadArea.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', e => {
+        if (e.target.files && e.target.files.length > 0) {
+            selectedFile = e.target.files[0];
+            selectedFileDiv.textContent = `Обрано: ${selectedFile.name}`;
+            selectedFileDiv.style.display = 'block';
+            transcribeBtn.disabled = false;
+        }
+    });
+
+    uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+    uploadArea.addEventListener('drop', e => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            selectedFile = e.dataTransfer.files[0];
+            fileInput.files = e.dataTransfer.files;
+            selectedFileDiv.textContent = `Обрано: ${selectedFile.name}`;
+            selectedFileDiv.style.display = 'block';
+            transcribeBtn.disabled = false;
+        }
+    });
+
+    transcribeBtn.addEventListener('click', async () => {
+        if (!selectedFile) return alert('Оберіть файл!');
+        if (selectedFile.size === 0) return alert('❌ Файл порожній!');
+        if (selectedFile.size > 500 * 1024 * 1024) return alert('❌ Максимальний розмір 500 MB.');
+
+        resetUI();
+        transcribeBtn.disabled = true;
+        transcribeBtn.textContent = 'Завантаження...';
+        showProgress(5, 'Передача файлу...');
+
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('language', document.getElementById('language').value);
+        formData.append('model_size', document.getElementById('modelSize').value);
+
+        try {
+            const response = await fetch('/upload', { method: 'POST', body: formData });
+            const data = await response.json();
+            if (!response.ok || data.error) throw new Error(data.error || 'Помилка сервера');
+            if (!data.task_id) throw new Error('Сервер не повернув task_id');
+
+            currentTaskId = data.task_id;
+            transcribeBtn.textContent = 'Обробка...';
+            pollProgress();
+        } catch (err) {
+            alert('❌ ' + err.message);
+            resetUI();
+        }
+    });
+
+    async function pollProgress() {
+        try {
+            const resp = await fetch(`/progress/${encodeURIComponent(currentTaskId)}`);
+            if (!resp.ok) throw new Error('Помилка під час отримання статусу');
+            const data = await resp.json();
+
+            const p = Math.min(100, Math.max(0, +data.progress || 0));
+            showProgress(p, data.message || 'Обробка...');
+
+            if (data.status === 'completed') {
+                displayResults(data.result);
+            } else if (data.status === 'error') {
+                alert('❌ ' + (data.message || 'Помилка обробки'));
+                resetUI();
+            } else {
+                progressTimer = setTimeout(pollProgress, 1000);
+            }
+        } catch (err) {
+            console.warn('Помилка зʼєднання, повтор через 2 с');
+            progressTimer = setTimeout(pollProgress, 2000);
+        }
+    }
+
+    function displayResults(result = {}) {
+        clearTimeout(progressTimer);
+        fullTextEl.textContent = result.full_text || '(Текст не розпізнано)';
+        srtFilename = result.srt_filename || null;
+
+        if (result.detected_language) {
+            detectedLanguageEl.textContent = result.detected_language;
+            languageInfo.style.display = 'inline-block';
+        } else {
+            languageInfo.style.display = 'none';
+        }
+
+        progressSection.style.display = 'none';
+        resultSection.style.display = 'block';
+        transcribeBtn.disabled = false;
+        transcribeBtn.textContent = 'Почати транскрипцію';
+    }
+
+    copyBtn.addEventListener('click', async () => {
+        const text = fullTextEl.textContent.trim();
+        if (!text) return alert('Немає тексту для копіювання');
+        try {
+            await navigator.clipboard.writeText(text);
+            alert('✅ Текст скопійовано!');
+        } catch {
+            alert('❌ Не вдалося скопіювати текст');
+        }
+    });
+
+    downloadBtn.addEventListener('click', async () => {
+        if (!srtFilename) return alert('Файл субтитрів не знайдено');
+        try {
+            const resp = await fetch(`/download/${encodeURIComponent(srtFilename)}`);
+            if (!resp.ok) throw new Error('Файл не знайдено');
+            const blob = await resp.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = srtFilename;
+            a.click();
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            alert('❌ ' + err.message);
+        }
+    });
+    </script>
+</body>
+</html>
