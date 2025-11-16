@@ -42,11 +42,10 @@
 
 ## 📸 Приклади роботи
 
-### Інтерфейс додатку
-![examples](examples/interface.png)
-
 ### Результат транскрипції
-![Results](examples/results.png)
+
+<img src="examples/results.png" width="45%" />
+<img src="examples/results2.png" width="45%" />
 
 ## 🚀 Швидкий старт
 
@@ -180,15 +179,6 @@ ffmpeg -version
 - Перевірте розмір (максимум 500MB)
 - Переконайтесь, що файл не пошкоджений
 
-## 🤝 Внесок у проєкт
-
-Contributions, issues та feature requests вітаються!
-
-1. Fork проєкту
-2. Створіть гілку для вашої функції (`git checkout -b feature/AmazingFeature`)
-3. Commit ваші зміни (`git commit -m 'Add some AmazingFeature'`)
-4. Push до гілки (`git push origin feature/AmazingFeature`)
-5. Відкрийте Pull Request
 
 ## 📝 Ліцензія
 
