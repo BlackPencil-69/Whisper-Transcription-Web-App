@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whisper Транскрипція</title>
+    <title>Whisper Transcription</title>
     <style>
         * {
             margin: 0;
@@ -300,12 +300,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎤 Whisper Транскрипція</h1>
-        <p class="subtitle">Перетягніть аудіо/відео файл або натисніть для вибору</p>
+        <h1>🎤 Whisper Transcription</h1>
+        <p class="subtitle">Drag and drop audio/video file or click to select</p>
 
         <div class="upload-area" id="uploadArea">
             <div class="upload-icon">📁</div>
-            <div class="upload-text">Клікніть або перетягніть файл сюди</div>
+            <div class="upload-text">Click or drag and drop file here</div>
             <input type="file" id="fileInput" class="file-input" accept="audio/*,video/*">
         </div>
 
@@ -313,158 +313,157 @@
 
         <div class="options">
             <div class="option-group">
-                <label for="language">Мова:</label>
+                <label for="language">Language:</label>
                 <select id="language">
-                    <option value="auto">🌍 Автовизначення</option>
-                    <optgroup label="Популярні">
-                        <option value="uk">🇺🇦 Українська</option>
-                        <option value="en">🇬🇧 Англійська</option>
-                        <option value="ru">🇷🇺 російська</option>
-                        <option value="es">🇪🇸 Іспанська</option>
-                        <option value="fr">🇫🇷 Французька</option>
-                        <option value="de">🇩🇪 Німецька</option>
-                        <option value="it">🇮🇹 Італійська</option>
-                        <option value="pt">🇵🇹 Португальська</option>
-                        <option value="ja">🇯🇵 Японська</option>
-                        <option value="zh">🇨🇳 Китайська</option>
-                        <option value="ko">🇰🇷 Корейська</option>
-                        <option value="ar">🇸🇦 Арабська</option>
-                        <option value="pl">🇵🇱 Польська</option>
-                        <option value="tr">🇹🇷 Турецька</option>
-                        <option value="hi">🇮🇳 Хінді</option>
+                    <option value="auto">🌍 Auto-detect</option>
+                    <optgroup label="Popular">
+                        <option value="uk">🇺🇦 Ukrainian</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="ru">💩 russian</option>
+                        <option value="es">🇪🇸 Spanish</option>
+                        <option value="fr">🇫🇷 French</option>
+                        <option value="de">🇩🇪 German</option>
+                        <option value="it">🇮🇹 Italian</option>
+                        <option value="pt">🇵🇹 Portuguese</option>
+                        <option value="ja">🇯🇵 Japanese</option>
+                        <option value="zh">🇨🇳 Chinese</option>
+                        <option value="ko">🇰🇷 Korean</option>
+                        <option value="ar">🇸🇦 Arabic</option>
+                        <option value="pl">🇵🇱 Polish</option>
+                        <option value="tr">🇹🇷 Turkish</option>
+                        <option value="hi">🇮🇳 Hindi</option>
                     </optgroup>
-                    <optgroup label="Інші мови">
-                        <option value="af">Африкаанс</option>
-                        <option value="sq">Албанська</option>
-                        <option value="am">Амхарська</option>
-                        <option value="hy">Вірменська</option>
-                        <option value="as">Ассамська</option>
-                        <option value="az">Азербайджанська</option>
-                        <option value="ba">Башкирська</option>
-                        <option value="eu">Баскська</option>
-                        <option value="be">Білоруська</option>
-                        <option value="bn">Бенгальська</option>
-                        <option value="bs">Боснійська</option>
-                        <option value="br">Бретонська</option>
-                        <option value="bg">Болгарська</option>
-                        <option value="my">Бірманська</option>
-                        <option value="ca">Каталонська</option>
-                        <option value="hr">Хорватська</option>
-                        <option value="cs">Чеська</option>
-                        <option value="da">Данська</option>
-                        <option value="nl">Нідерландська</option>
-                        <option value="et">Естонська</option>
-                        <option value="fo">Фарерська</option>
-                        <option value="fi">Фінська</option>
-                        <option value="gl">Галісійська</option>
-                        <option value="ka">Грузинська</option>
-                        <option value="el">Грецька</option>
-                        <option value="gu">Гуджараті</option>
-                        <option value="ht">Гаїтянська</option>
-                        <option value="ha">Хауса</option>
-                        <option value="haw">Гавайська</option>
-                        <option value="he">Іврит</option>
-                        <option value="hu">Угорська</option>
-                        <option value="is">Ісландська</option>
-                        <option value="id">Індонезійська</option>
-                        <option value="ga">Ірландська</option>
-                        <option value="jw">Яванська</option>
-                        <option value="kn">Каннада</option>
-                        <option value="kk">Казахська</option>
-                        <option value="km">Кхмерська</option>
-                        <option value="lo">Лаоська</option>
-                        <option value="la">Латинь</option>
-                        <option value="lv">Латвійська</option>
-                        <option value="ln">Лінгала</option>
-                        <option value="lt">Литовська</option>
-                        <option value="lb">Люксембурзька</option>
-                        <option value="mk">Македонська</option>
-                        <option value="mg">Малагасійська</option>
-                        <option value="ms">Малайська</option>
-                        <option value="ml">Малаялам</option>
-                        <option value="mt">Мальтійська</option>
-                        <option value="mi">Маорі</option>
-                        <option value="mr">Маратхі</option>
-                        <option value="mn">Монгольська</option>
-                        <option value="ne">Непальська</option>
-                        <option value="no">Норвезька</option>
-                        <option value="nn">Нюношк</option>
-                        <option value="oc">Окситанська</option>
-                        <option value="ps">Пушту</option>
-                        <option value="fa">Перська</option>
-                        <option value="pa">Панджабі</option>
-                        <option value="ro">Румунська</option>
-                        <option value="sa">Санскрит</option>
-                        <option value="sr">Сербська</option>
-                        <option value="sn">Шона</option>
-                        <option value="sd">Сіндхі</option>
-                        <option value="si">Сингальська</option>
-                        <option value="sk">Словацька</option>
-                        <option value="sl">Словенська</option>
-                        <option value="so">Сомалійська</option>
-                        <option value="su">Сунданська</option>
-                        <option value="sw">Суахілі</option>
-                        <option value="sv">Шведська</option>
-                        <option value="tl">Тагальська</option>
-                        <option value="tg">Таджицька</option>
-                        <option value="ta">Тамільська</option>
-                        <option value="tt">Татарська</option>
-                        <option value="te">Телугу</option>
-                        <option value="th">Тайська</option>
-                        <option value="bo">Тибетська</option>
-                        <option value="tk">Туркменська</option>
-                        <option value="uk">Українська</option>
-                        <option value="ur">Урду</option>
-                        <option value="uz">Узбецька</option>
-                        <option value="vi">В'єтнамська</option>
-                        <option value="cy">Валлійська</option>
-                        <option value="yi">Ідиш</option>
-                        <option value="yo">Йоруба</option>
+                    <optgroup label="Other languages">
+                        <option value="af">Afrikaans</option>
+                        <option value="sq">Albanian</option>
+                        <option value="am">Amharic</option>
+                        <option value="hy">Armenian</option>
+                        <option value="as">Assamese</option>
+                        <option value="az">Azerbaijani</option>
+                        <option value="ba">Bashkir</option>
+                        <option value="eu">Basque</option>
+                        <option value="be">Belarusian</option>
+                        <option value="bn">Bengali</option>
+                        <option value="bs">Bosnian</option>
+                        <option value="br">Breton</option>
+                        <option value="bg">Bulgarian</option>
+                        <option value="my">Burmese</option>
+                        <option value="ca">Catalan</option>
+                        <option value="hr">Croatian</option>
+                        <option value="cs">Czech</option>
+                        <option value="da">Danish</option>
+                        <option value="nl">Dutch</option>
+                        <option value="et">Estonian</option>
+                        <option value="fo">Faroese</option>
+                        <option value="fi">Finnish</option>
+                        <option value="gl">Galician</option>
+                        <option value="ka">Georgian</option>
+                        <option value="el">Greek</option>
+                        <option value="gu">Gujarati</option>
+                        <option value="ht">Haitian Creole</option>
+                        <option value="ha">Hausa</option>
+                        <option value="haw">Hawaiian</option>
+                        <option value="he">Hebrew</option>
+                        <option value="hu">Hungarian</option>
+                        <option value="is">Icelandic</option>
+                        <option value="id">Indonesian</option>
+                        <option value="ga">Irish</option>
+                        <option value="jw">Javanese</option>
+                        <option value="kn">Kannada</option>
+                        <option value="kk">Kazakh</option>
+                        <option value="km">Khmer</option>
+                        <option value="lo">Lao</option>
+                        <option value="la">Latin</option>
+                        <option value="lv">Latvian</option>
+                        <option value="ln">Lingala</option>
+                        <option value="lt">Lithuanian</option>
+                        <option value="lb">Luxembourgish</option>
+                        <option value="mk">Macedonian</option>
+                        <option value="mg">Malagasy</option>
+                        <option value="ms">Malay</option>
+                        <option value="ml">Malayalam</option>
+                        <option value="mt">Maltese</option>
+                        <option value="mi">Maori</option>
+                        <option value="mr">Marathi</option>
+                        <option value="mn">Mongolian</option>
+                        <option value="ne">Nepali</option>
+                        <option value="no">Norwegian</option>
+                        <option value="nn">Nynorsk</option>
+                        <option value="oc">Occitan</option>
+                        <option value="ps">Pashto</option>
+                        <option value="fa">Persian</option>
+                        <option value="pa">Punjabi</option>
+                        <option value="ro">Romanian</option>
+                        <option value="sa">Sanskrit</option>
+                        <option value="sr">Serbian</option>
+                        <option value="sn">Shona</option>
+                        <option value="sd">Sindhi</option>
+                        <option value="si">Sinhala</option>
+                        <option value="sk">Slovak</option>
+                        <option value="sl">Slovenian</option>
+                        <option value="so">Somali</option>
+                        <option value="su">Sundanese</option>
+                        <option value="sw">Swahili</option>
+                        <option value="sv">Swedish</option>
+                        <option value="tl">Tagalog</option>
+                        <option value="tg">Tajik</option>
+                        <option value="ta">Tamil</option>
+                        <option value="tt">Tatar</option>
+                        <option value="te">Telugu</option>
+                        <option value="th">Thai</option>
+                        <option value="bo">Tibetan</option>
+                        <option value="tk">Turkmen</option>
+                        <option value="ur">Urdu</option>
+                        <option value="uz">Uzbek</option>
+                        <option value="vi">Vietnamese</option>
+                        <option value="cy">Welsh</option>
+                        <option value="yi">Yiddish</option>
+                        <option value="yo">Yoruba</option>
                     </optgroup>
                 </select>
             </div>
             <div class="option-group">
-                <label for="modelSize">Модель:</label>
+                <label for="modelSize">Model:</label>
                 <select id="modelSize">
-                    <option value="tiny">Tiny (швидка)</option>
-                    <option value="base" selected>Base (оптимальна)</option>
-                    <option value="small">Small (точна)</option>
-                    <option value="medium">Medium (дуже точна)</option>
-                    <option value="large">Large (найточніша)</option>
+                    <option value="tiny">Tiny (Fast)</option>
+                    <option value="base" selected>Base (Optimal)</option>
+                    <option value="small">Small (Accurate)</option>
+                    <option value="medium">Medium (Very Accurate)</option>
+                    <option value="large">Large (Most Accurate)</option>
                 </select>
             </div>
         </div>
 
-        <button class="btn" id="transcribeBtn" disabled>Почати транскрипцію</button>
+        <button class="btn" id="transcribeBtn" disabled>Start Transcription</button>
 
         <div class="progress-section" id="progressSection">
             <div class="progress-bar-container">
                 <div class="progress-bar" id="progressBar">0%</div>
             </div>
-            <div class="progress-message" id="progressMessage">Обробка...</div>
+            <div class="progress-message" id="progressMessage">Processing...</div>
         </div>
 
         <div class="result-section" id="resultSection">
             <div class="result-info" id="resultInfo"></div>
             
             <div class="result-tabs">
-                <button class="tab active" onclick="showTab('full')">Повний текст</button>
-                <button class="tab" onclick="showTab('srt')">SRT субтитри</button>
+                <button class="tab active" onclick="showTab('full')">Full Text</button>
+                <button class="tab" onclick="showTab('srt')">SRT Subtitles</button>
             </div>
 
             <div class="result-content active" id="fullTextContent">
                 <div class="result-text" id="fullText"></div>
                 <div class="action-buttons">
-                    <button class="copy-btn" onclick="copyText('full')">📋 Копіювати</button>
-                    <button class="download-btn" onclick="downloadText('full')">💾 Завантажити</button>
+                    <button class="copy-btn" onclick="copyText('full')">📋 Copy</button>
+                    <button class="download-btn" onclick="downloadText('full')">💾 Download</button>
                 </div>
             </div>
 
             <div class="result-content" id="srtContent">
                 <div class="result-text" id="srtText"></div>
                 <div class="action-buttons">
-                    <button class="copy-btn" onclick="copyText('srt')">📋 Копіювати</button>
-                    <button class="download-btn" onclick="downloadText('srt')">💾 Завантажити SRT</button>
+                    <button class="copy-btn" onclick="copyText('srt')">📋 Copy</button>
+                    <button class="download-btn" onclick="downloadText('srt')">💾 Download SRT</button>
                 </div>
             </div>
         </div>
@@ -487,7 +486,8 @@
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 selectedFile = e.target.files[0];
-                selectedFileDiv.textContent = `Обрано: ${selectedFile.name}`;
+                // Translation: Обрано: ${selectedFile.name} -> Selected: ${selectedFile.name}
+                selectedFileDiv.textContent = `Selected: ${selectedFile.name}`;
                 selectedFileDiv.style.display = 'block';
                 transcribeBtn.disabled = false;
             }
@@ -509,7 +509,8 @@
             if (e.dataTransfer.files.length > 0) {
                 selectedFile = e.dataTransfer.files[0];
                 fileInput.files = e.dataTransfer.files;
-                selectedFileDiv.textContent = `Обрано: ${selectedFile.name}`;
+                // Translation: Обрано: ${selectedFile.name} -> Selected: ${selectedFile.name}
+                selectedFileDiv.textContent = `Selected: ${selectedFile.name}`;
                 selectedFileDiv.style.display = 'block';
                 transcribeBtn.disabled = false;
             }
@@ -536,7 +537,8 @@
                 const data = await response.json();
                 
                 if (data.error) {
-                    alert('Помилка: ' + data.error);
+                    // Translation: Помилка: -> Error:
+                    alert('Error: ' + data.error);
                     transcribeBtn.disabled = false;
                     progressSection.style.display = 'none';
                     return;
@@ -545,7 +547,8 @@
                 currentTaskId = data.task_id;
                 checkProgress();
             } catch (error) {
-                alert('Помилка завантаження: ' + error.message);
+                // Translation: Помилка завантаження: -> Upload error:
+                alert('Upload error: ' + error.message);
                 transcribeBtn.disabled = false;
                 progressSection.style.display = 'none';
             }
@@ -561,19 +564,22 @@
 
                 progressBar.style.width = data.progress + '%';
                 progressBar.textContent = data.progress + '%';
-                progressMessage.textContent = data.message;
+                // Message from server is already translated in python part
+                progressMessage.textContent = data.message; 
 
                 if (data.status === 'completed') {
                     displayResults(data.result);
                 } else if (data.status === 'error') {
-                    alert('Помилка: ' + data.message);
+                    // Translation: Помилка: -> Error:
+                    alert('Error: ' + data.message);
                     transcribeBtn.disabled = false;
                     progressSection.style.display = 'none';
                 } else {
                     setTimeout(checkProgress, 500);
                 }
             } catch (error) {
-                console.error('Помилка перевірки прогресу:', error);
+                // Translation: Помилка перевірки прогресу: -> Error checking progress:
+                console.error('Error checking progress:', error);
                 setTimeout(checkProgress, 1000);
             }
         }
@@ -584,7 +590,8 @@
             document.getElementById('fullText').textContent = result.full_text;
             document.getElementById('srtText').textContent = result.srt_subtitles;
             
-            const infoText = `📊 Виявлена мова: ${result.detected_language} | Сегментів: ${result.segments_count}`;
+            // Translation: 📊 Виявлена мова: ${result.detected_language} | Сегментів: ${result.segments_count}
+            const infoText = `📊 Detected Language: ${result.detected_language} | Segments: ${result.segments_count}`;
             document.getElementById('resultInfo').textContent = infoText;
             
             progressSection.style.display = 'none';
@@ -617,7 +624,8 @@
             }
 
             navigator.clipboard.writeText(text).then(() => {
-                alert('Текст скопійовано!');
+                // Translation: Текст скопійовано! -> Text copied!
+                alert('Text copied!');
             });
         }
 
