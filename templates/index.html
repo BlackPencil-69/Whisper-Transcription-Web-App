@@ -486,7 +486,6 @@
         fileInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 selectedFile = e.target.files[0];
-                // Translation: Обрано: ${selectedFile.name} -> Selected: ${selectedFile.name}
                 selectedFileDiv.textContent = `Selected: ${selectedFile.name}`;
                 selectedFileDiv.style.display = 'block';
                 transcribeBtn.disabled = false;
@@ -509,7 +508,6 @@
             if (e.dataTransfer.files.length > 0) {
                 selectedFile = e.dataTransfer.files[0];
                 fileInput.files = e.dataTransfer.files;
-                // Translation: Обрано: ${selectedFile.name} -> Selected: ${selectedFile.name}
                 selectedFileDiv.textContent = `Selected: ${selectedFile.name}`;
                 selectedFileDiv.style.display = 'block';
                 transcribeBtn.disabled = false;
@@ -537,7 +535,6 @@
                 const data = await response.json();
                 
                 if (data.error) {
-                    // Translation: Помилка: -> Error:
                     alert('Error: ' + data.error);
                     transcribeBtn.disabled = false;
                     progressSection.style.display = 'none';
@@ -547,7 +544,6 @@
                 currentTaskId = data.task_id;
                 checkProgress();
             } catch (error) {
-                // Translation: Помилка завантаження: -> Upload error:
                 alert('Upload error: ' + error.message);
                 transcribeBtn.disabled = false;
                 progressSection.style.display = 'none';
@@ -570,7 +566,6 @@
                 if (data.status === 'completed') {
                     displayResults(data.result);
                 } else if (data.status === 'error') {
-                    // Translation: Помилка: -> Error:
                     alert('Error: ' + data.message);
                     transcribeBtn.disabled = false;
                     progressSection.style.display = 'none';
@@ -578,7 +573,6 @@
                     setTimeout(checkProgress, 500);
                 }
             } catch (error) {
-                // Translation: Помилка перевірки прогресу: -> Error checking progress:
                 console.error('Error checking progress:', error);
                 setTimeout(checkProgress, 1000);
             }
@@ -590,7 +584,6 @@
             document.getElementById('fullText').textContent = result.full_text;
             document.getElementById('srtText').textContent = result.srt_subtitles;
             
-            // Translation: 📊 Виявлена мова: ${result.detected_language} | Сегментів: ${result.segments_count}
             const infoText = `📊 Detected Language: ${result.detected_language} | Segments: ${result.segments_count}`;
             document.getElementById('resultInfo').textContent = infoText;
             
@@ -624,7 +617,6 @@
             }
 
             navigator.clipboard.writeText(text).then(() => {
-                // Translation: Текст скопійовано! -> Text copied!
                 alert('Text copied!');
             });
         }
@@ -655,3 +647,4 @@
     </script>
 </body>
 </html>
+
