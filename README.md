@@ -179,6 +179,8 @@ GitHub: [@BlackPencil-69](https://github.com/BlackPencil-69/)
 
 Project Link: [https://github.com/BlackPencil-69/Subtitles-and-text-whisper](https://github.com/BlackPencil-69/Subtitles-and-text-whisper)
 
+Discord: [@anonym_pro](https://discord.com/users/1149264703470698529)
+
 ---
 
 **⭐ If this project was helpful, please give it a star!**
@@ -186,6 +188,7 @@ Project Link: [https://github.com/BlackPencil-69/Subtitles-and-text-whisper](htt
 > 🤖 This project was created using artificial intelligence to demonstrate the capabilities of AI in software development.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
